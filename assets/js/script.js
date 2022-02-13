@@ -181,7 +181,7 @@ function displayCreators(data) {
 		dataEl.style.display = "block";
 		addDate.style.display = "block"
 		openEvent.style.display = "none";
-		updateSigninStatus(isSignedIn);
+		updateSigninStatus();
 		if (i == idArr.length - 1)
 			dataResult = dataResult.concat('.');
 	}
