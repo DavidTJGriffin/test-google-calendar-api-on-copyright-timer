@@ -176,7 +176,7 @@ function displayCreators(data) {
 
 
 		searchResultsEl.style.display = "none";
-
+		updateSigninStatus();
 		searchResultsEl.style.left = '-100%';
 		dataEl.style.display = "block";
 		addDate.style.display = "block"
