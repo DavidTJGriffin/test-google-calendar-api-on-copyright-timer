@@ -179,7 +179,7 @@ function displayCreators(data) {
 
 		searchResultsEl.style.left = '-100%';
 		dataEl.style.display = "block";
-		updateSigninStatus(isSignedIn);
+		updateSigninStatus();
 		openEvent.style.display = "none";
 		if (i == idArr.length - 1)
 			dataResult = dataResult.concat('.');
