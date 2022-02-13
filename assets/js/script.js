@@ -113,6 +113,7 @@ function displayId(data) {
 		dataPEl.innerHTML = dataResult + badDataBase;
 		searchResultsEl.style.display = "none";
 		dataEl.style.display = "block";
+		updateSigninStatus(undefined, 'none');
 		return;
 	}
 
@@ -166,7 +167,7 @@ function displayCreators(data) {
 			console.log(time.toLocaleString());
 			expiredDateArr.push(time);
 			calendarSection.style.display = 'block'
-			
+
 		}
 		else {	//still alive, or data is incomplete
 			console.log("who is still alive")
@@ -176,7 +177,7 @@ function displayCreators(data) {
 
 
 		searchResultsEl.style.display = "none";
-		
+
 		searchResultsEl.style.left = '-100%';
 		dataEl.style.display = "block";
 		addDate.style.display = "block"
@@ -196,12 +197,14 @@ function displayCreators(data) {
 		let alreadyExpired = expiredDate < DateTime.now();	//boolean
 		let expired = alreadyExpired ? 'expired' : 'expires';
 		displayText = `This copyright ${expired} on <span class="expired-date">${expiredDate.toLocaleString()}</span>. `;
+		let display = alreadyExpired ? 'none' : 'block';
+		updateSigninStatus(undefined, display);
+
 		if (alreadyExpired)
 			displayText = displayText.concat(`${title} is in the public domain.`);
 	} else {
 		displayText = `This copyright will expire 70 years after ${copyrightHolderArr.join(", ")} die${copyrightHolderArr.length > 1 ? "" : "s"}.`;
-		addDate.style.display = 'none'
-		signoutButton.style.display = 'none'
+		updateSigninStatus(undefined, 'none');
 	}
 
 	dataPEl.textContent = dataResult;
@@ -393,22 +396,27 @@ function initClient() {
 		appendPre(JSON.stringify(error, null, 2));
 	});
 }
-
+let lastSignIn = false
 /**
  *  Called when the signed in status changes, to update the UI
  *  appropriately. After a sign-in, the API is called.
  */
-function updateSigninStatus(isSignedIn) {
+function updateSigninStatus(isSignedIn, display = 'block') {
+	if (isSignedIn === undefined) {
+		isSignedIn = lastSignIn
+	};
+
 	if (isSignedIn) {
 		authorizeButton.style.display = 'none';
-		signoutButton.style.display = 'block';
-		addDate.style.display = 'block';
+		signoutButton.style.display = display;
+		addDate.style.display = display;
 
 	} else {
-		authorizeButton.style.display = 'block';
+		authorizeButton.style.display = display;
 		signoutButton.style.display = 'none';
 		addDate.style.display = 'none';
 	}
+	lastSignIn = isSignedIn
 }
 
 /**
