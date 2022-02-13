@@ -176,11 +176,12 @@ function displayCreators(data) {
 
 
 		searchResultsEl.style.display = "none";
-		updateSigninStatus(isSignedIn);
+		
 		searchResultsEl.style.left = '-100%';
 		dataEl.style.display = "block";
 		addDate.style.display = "block"
 		openEvent.style.display = "none";
+		updateSigninStatus(isSignedIn);
 		if (i == idArr.length - 1)
 			dataResult = dataResult.concat('.');
 	}
